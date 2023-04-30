@@ -444,6 +444,8 @@
 				DEVELOPMENT_TEAM = ZXZ96723Y7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CallKitSample/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "カメラを使用します";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "マイクを使用します";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -472,6 +474,8 @@
 				DEVELOPMENT_TEAM = ZXZ96723Y7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CallKitSample/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "カメラを使用します";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "マイクを使用します";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
