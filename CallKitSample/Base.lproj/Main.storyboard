@@ -104,8 +104,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="endButton" destination="cZ4-Ho-w2I" id="r5o-rK-OPX"/>
                         <outlet property="localView" destination="M2v-Ng-7nF" id="3MT-xv-jfL"/>
                         <outlet property="remoteView" destination="Kqu-kq-nxd" id="UvJ-Of-Udp"/>
+                        <outlet property="startButton" destination="ygS-yV-tEk" id="3e5-gJ-C7R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
