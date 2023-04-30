@@ -1,0 +1,16 @@
+PODS:
+  - SkyWay (5.0.0)
+
+DEPENDENCIES:
+  - SkyWay
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - SkyWay
+
+SPEC CHECKSUMS:
+  SkyWay: bcc548bb0617e937fd9e468f9b204f2fc36f69f9
+
+PODFILE CHECKSUM: d1c4a5bf440712f8dc777a38e9742f1edacb221d
+
+COCOAPODS: 1.12.1
