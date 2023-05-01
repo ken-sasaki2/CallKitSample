@@ -14,24 +14,25 @@ final class CallCenter {
     private let provider: CXProvider
     private var uuid = UUID()
     
+    
     init(supportsVideo: Bool) {
-        let providerConfiguration1 = CXProviderConfiguration(localizedName: "CallKitSample") // localizedName（非推奨）はもしかして不要？
-        let providerConfiguration2 = CXProviderConfiguration()
-        providerConfiguration1.supportsVideo = supportsVideo // ビデオのサポートはどうか
-        providerConfiguration1.maximumCallGroups = 1 // 通話グループの人数
-        providerConfiguration1.includesCallsInRecents = true // システムに通話履歴を残すかどうか
+        let providerConfiguration = CXProviderConfiguration()
+        providerConfiguration.supportsVideo = supportsVideo // ビデオのサポートはどうか
+        providerConfiguration.maximumCallGroups = 1 // 通話グループの人数
+        providerConfiguration.includesCallsInRecents = true // システムに通話履歴を残すかどうか
         
-        provider = CXProvider(configuration: providerConfiguration1)
+        provider = CXProvider(configuration: providerConfiguration)
     }
+    
     
     func setUp(_ delegate: CXProviderDelegate) {
         provider.setDelegate(delegate, queue: nil)
     }
     
-    // 発信
+    
     func startCall(_ isVideo: Bool) {
         uuid = UUID()
-        let handle = CXHandle(type: .generic, value: "Aさん")
+        let handle = CXHandle(type: .generic, value: "自分")
         let starCallAction = CXStartCallAction(call: uuid, handle: handle)
         starCallAction.isVideo = isVideo
         let transaction = CXTransaction(action: starCallAction)
@@ -42,13 +43,13 @@ final class CallCenter {
             }
         }
     }
+
     
-    // 着信
     func incomingCall(_ hasVideo: Bool = false) {
         uuid = UUID()
         
         let update = CXCallUpdate()
-        update.remoteHandle = CXHandle(type: .generic, value: "Bさん")
+        update.remoteHandle = CXHandle(type: .generic, value: "発信者")
         update.hasVideo = hasVideo
         
         provider.reportNewIncomingCall(with: uuid, update: update) { error in
@@ -58,7 +59,7 @@ final class CallCenter {
         }
     }
     
-    // 通話終了
+    
     func endCall() {
         let action = CXEndCallAction(call: uuid)
         let transaction = CXTransaction(action: action)
@@ -70,13 +71,16 @@ final class CallCenter {
         }
     }
     
+    
     func connecting() {
         provider.reportOutgoingCall(with: uuid, startedConnectingAt: nil)
     }
     
+    
     func connected() {
         provider.reportOutgoingCall(with: uuid, connectedAt: nil)
     }
+    
     
     func ConfigureAudioSession() {
         try? AVAudioSession.sharedInstance().setCategory(
@@ -85,5 +89,4 @@ final class CallCenter {
             options: []
         )
     }
-
 }
