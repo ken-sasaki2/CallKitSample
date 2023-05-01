@@ -14,10 +14,10 @@ final class CallCenter {
     private let provider: CXProvider
     private var uuid = UUID()
     
-    init(supportsVider: Bool) {
+    init(supportsVideo: Bool) {
         let providerConfiguration1 = CXProviderConfiguration(localizedName: "CallKitSample") // localizedName（非推奨）はもしかして不要？
         let providerConfiguration2 = CXProviderConfiguration()
-        providerConfiguration1.supportsVideo = supportsVider // ビデオのサポートはどうか
+        providerConfiguration1.supportsVideo = supportsVideo // ビデオのサポートはどうか
         providerConfiguration1.maximumCallGroups = 1 // 通話グループの人数
         providerConfiguration1.includesCallsInRecents = true // システムに通話履歴を残すかどうか
         
@@ -29,10 +29,11 @@ final class CallCenter {
     }
     
     // 発信
-    func startCall() {
+    func startCall(_ isVideo: Bool) {
         uuid = UUID()
         let handle = CXHandle(type: .generic, value: "Aさん")
         let starCallAction = CXStartCallAction(call: uuid, handle: handle)
+        starCallAction.isVideo = isVideo
         let transaction = CXTransaction(action: starCallAction)
         
         controller.request(transaction) { error in
@@ -78,11 +79,11 @@ final class CallCenter {
     }
     
     func ConfigureAudioSession() {
-       try? AVAudioSession.sharedInstance().setCategory(
-        AVAudioSession.Category.playAndRecord,
-        mode: .voiceChat,
-        options: []
-       )
+        try? AVAudioSession.sharedInstance().setCategory(
+            AVAudioSession.Category.playAndRecord,
+            mode: .voiceChat,
+            options: []
+        )
     }
 
 }
