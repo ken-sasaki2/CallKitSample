@@ -57,37 +57,6 @@ final class ViewController: UIViewController {
     }
     
     
-    private func showPeersDialog(_ peer: SKWPeer, handler: @escaping (String) -> Void) {
-        if mediaConnection == nil {
-            peer.listAllPeers() { peers in
-                if let peerIds = peers as? [String] {
-                    if peerIds.count <= 1 {
-                        let alert = UIAlertController(title: "確認", message: "接続先がありません", preferredStyle: .alert)
-                        let action = UIAlertAction(title: "キャンセル", style: .cancel)
-                        alert.addAction(action)
-                        self.present(alert, animated: true)
-                    } else {
-                        let alert = UIAlertController(title: "確認", message: "接続先を選択してください", preferredStyle: .alert)
-                        
-                        peerIds.forEach { peerId in
-                            // 自分以外のpeerIDなら
-                            if peerId != peer.identity {
-                                let defaultAction = UIAlertAction(title: peerId, style: .default) { _ in
-                                    handler(peerId)
-                                }
-                                alert.addAction(defaultAction)
-                            }
-                        }
-                        let cancelAnction = UIAlertAction(title: "キャンセル", style: .cancel)
-                        alert.addAction(cancelAnction)
-                        self.present(alert, animated: true)
-                    }
-                }
-            }
-        }
-    }
-    
-    
     @IBAction func start(_ sender: UIButton) {
         guard let peer = self.peer else {
             return
@@ -132,12 +101,13 @@ extension ViewController {
         }
     }
     
+    
     private func setUpLocalStream(_ peer: SKWPeer) {
         SKWNavigator.initialize(peer)
         
         let constraints = SKWMediaConstraints()
-         constraints.maxWidth = 540
-         constraints.maxHeight = 960
+        constraints.maxWidth = 540
+        constraints.maxHeight = 960
         constraints.cameraPosition = .CAMERA_POSITION_FRONT
         
         localStream = SKWNavigator.getUserMedia(constraints)
@@ -167,7 +137,6 @@ extension ViewController {
             print("Fail connect data connection")
         }
     }
-
 }
 
 
@@ -195,7 +164,6 @@ extension ViewController {
             // 相手との接続が切れた場合の処理（サンプルアプリなので処理しない）
         }
         
-        // 発信
         peer.on(.PEER_EVENT_CALL) { object in
             if let connection = object as? SKWMediaConnection {
                 self.mediaConnection = connection
@@ -204,7 +172,6 @@ extension ViewController {
             }
         }
         
-        // 着信
         peer.on(.PEER_EVENT_CONNECTION) { object in
             if let connection = object as? SKWDataConnection {
                 if self.dataConnection == nil {
@@ -222,7 +189,7 @@ extension ViewController {
 extension ViewController {
     
     private func setUpMediaConnectionCallbacks(_ mediaConnection: SKWMediaConnection) {
-
+        
         mediaConnection.on(.MEDIACONNECTION_EVENT_STREAM) { object in
             if let mediaStream = object as? SKWMediaStream {
                 self.remoteStream = mediaStream
@@ -233,8 +200,6 @@ extension ViewController {
                 
                 self.toggleConnectionStatusUI(true)
                 self.callCenter.connected()
-            } else {
-                print("kenken")
             }
         }
         
@@ -257,7 +222,6 @@ extension ViewController {
             }
         }
     }
-    
 }
 
 
@@ -311,8 +275,44 @@ extension ViewController: CXProviderDelegate {
 }
 
 
+// ダイアログ
+extension ViewController {
+    
+    private func showPeersDialog(_ peer: SKWPeer, handler: @escaping (String) -> Void) {
+        if mediaConnection == nil {
+            peer.listAllPeers() { peers in
+                if let peerIds = peers as? [String] {
+                    if peerIds.count <= 1 {
+                        let alert = UIAlertController(title: "確認", message: "接続先がありません", preferredStyle: .alert)
+                        let action = UIAlertAction(title: "キャンセル", style: .cancel)
+                        alert.addAction(action)
+                        self.present(alert, animated: true)
+                    } else {
+                        let alert = UIAlertController(title: "確認", message: "接続先を選択してください", preferredStyle: .alert)
+                        
+                        peerIds.forEach { peerId in
+                            // 自分以外のpeerIDなら
+                            if peerId != peer.identity {
+                                let defaultAction = UIAlertAction(title: peerId, style: .default) { _ in
+                                    handler(peerId)
+                                }
+                                alert.addAction(defaultAction)
+                            }
+                        }
+                        let cancelAnction = UIAlertAction(title: "キャンセル", style: .cancel)
+                        alert.addAction(cancelAnction)
+                        self.present(alert, animated: true)
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 // マイク許可
 extension ViewController {
+    
     private func checkPermissionAudio() {
         let status = AVCaptureDevice.authorizationStatus(for: .audio)
         
@@ -350,6 +350,7 @@ extension ViewController {
 
 // カメラ許可
 extension ViewController {
+    
     private func checkPermissionCanera() {
         let status = AVCaptureDevice.authorizationStatus(for: .video)
         
