@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -28,10 +29,26 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ARq-VX-26j">
+                                        <rect key="frame" x="308" y="64" width="56" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="56" id="5VC-fG-k6F"/>
+                                            <constraint firstAttribute="height" constant="35" id="fXA-9P-BDE"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="camera.rotate" catalog="system">
+                                            <color key="baseForegroundColor" systemColor="labelColor"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="switchCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3i0-Wl-Zc4"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                                 <constraints>
                                     <constraint firstItem="id7-UJ-xsO" firstAttribute="top" secondItem="Kqu-kq-nxd" secondAttribute="top" constant="61" id="Iie-M5-gQs"/>
+                                    <constraint firstAttribute="trailing" secondItem="ARq-VX-26j" secondAttribute="trailing" constant="11" id="Uxy-Dk-h1U"/>
+                                    <constraint firstItem="ARq-VX-26j" firstAttribute="top" secondItem="Kqu-kq-nxd" secondAttribute="top" constant="64" id="bey-9h-goj"/>
                                     <constraint firstItem="id7-UJ-xsO" firstAttribute="leading" secondItem="Kqu-kq-nxd" secondAttribute="leading" constant="11" id="unk-Q7-Gxv"/>
                                 </constraints>
                             </view>
@@ -119,6 +136,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="camera.rotate" catalog="system" width="128" height="93"/>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

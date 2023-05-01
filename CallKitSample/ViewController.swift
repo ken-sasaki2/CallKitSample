@@ -77,6 +77,30 @@ final class ViewController: UIViewController {
             callCenter.endCall()
         }
     }
+    
+    
+    @IBAction func switchCamera(_ sender: UIButton) {
+        if localStream == nil {
+            return
+        }
+        
+        guard var cameraPosition = localStream?.getCameraPosition() else {
+            return
+        }
+        
+        switch cameraPosition {
+        case .CAMERA_POSITION_FRONT:
+            cameraPosition = .CAMERA_POSITION_BACK
+        case .CAMERA_POSITION_BACK:
+            cameraPosition = .CAMERA_POSITION_FRONT
+        case .CAMERA_POSITION_UNSPECIFIED:
+            cameraPosition = .CAMERA_POSITION_FRONT
+        @unknown default:
+            return
+        }
+        
+        localStream?.setCameraPosition(cameraPosition)
+    }
 }
 
 
